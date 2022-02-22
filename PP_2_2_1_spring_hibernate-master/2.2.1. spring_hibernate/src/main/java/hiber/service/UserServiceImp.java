@@ -3,8 +3,7 @@ package hiber.service;
 import hiber.dao.UserDao;
 import hiber.model.Car;
 import hiber.model.User;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +12,7 @@ import java.util.List;
 
 @Service
 public class UserServiceImp implements UserService {
+
 
    @Autowired
    private UserDao userDao;
@@ -31,13 +31,16 @@ public class UserServiceImp implements UserService {
 
    @Transactional
    @Override
-   public List<User> getUserByCar(Car car) {
-//
-//      Query query = session.createQuery("From User WHERE Car = car");
-//      List <User> user = query.list();
-//      return user;
-      return  null;
+   public List<Car> usersCars() {
+      return userDao.usersCars();
    }
+
+   @Transactional
+   @Override
+   public List<User> getUserByCar(String model, int series) {
+      return userDao.getUserByCar(model, series);
+   }
+
 
 }
 
